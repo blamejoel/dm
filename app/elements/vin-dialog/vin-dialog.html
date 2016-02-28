@@ -1,0 +1,59 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="vin-dialog">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+      }
+      paper-dialog {
+        background-color: #ffffff
+      }
+      .content {
+      }
+      paper-checkbox {
+        margin-top:20px;
+      }
+    </style>
+    <paper-dialog id="vinScreen" entry-animation="scale-up-animation" 
+      exit-animation="fade-out-animation" modal>
+      <h2>VIN Detected!</h2>
+      <div class="content">
+        <div id="vin-done">
+          A valid VIN has been recognized over CAN. Your 
+        vehicle search boxes have been preselected based on this information.
+        <paper-checkbox>Don't show this pop-up again.</paper-checkbox>
+        </div>
+      </div>
+      <div class="buttons">
+        <paper-button id="dia-close" dialog-confirm autofocus>OK</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+  <script>
+/* exported VinDialog */
+var VinDialog = Polymer({
+  is: 'vin-dialog',
+  factoryImpl: function(arr) {
+    this.infoArr = arr;
+    /* console.log(arr); */
+  },
+  properties: {
+    infoArr: {
+      type: Array,
+      value: [{'key': 'Category', 'desc': 'Setting'}]
+    }
+  },
+  open: function() {
+    this.$.vinScreen.open();
+    console.log('open!');
+  }
+});
+
+  </script>
+</dom-module>

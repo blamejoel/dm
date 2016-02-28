@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endreplace-->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <title>Directechs Mobile 2.0 Demo</title>
+  <!-- Place favicon.ico in the `app/` directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="DM">
+  <!-- <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png"> -->
+  <link rel="icon" sizes="192x192" href="images/touch/wire_icon.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Directechs Mobile Demo">
+  <link rel="apple-touch-icon" href="images/touch/wire_icon.png">
+
+  <!-- For shared styles, shared-styles.html import in elements.html -->
+  <style is="custom-style" include="shared-styles">
+  html, body {
+    padding:0px;
+    margin:0px;
+    height:100%;
+    @apply(--layout-vertical);
+  }
+  .buttonRow {
+    @apply(--layout-horizontal);
+    @apply(--layout-center-justified);
+    margin-top: 10px;
+  }
+  #dmobile {
+    height:100%;
+  }
+  </style>
+</head>
+<body>
+  <span id="browser-sync-binding"></span>
+  <div id="dmobile">
+    <home-screen>
+      <flash-page><div id="vehSelectMarker"></div></flash-page>
+      <flash-dialog></flash-dialog>
+    </home-screen>
+  <paper-toast id="demo"></paper-toast>
+  <paper-toast id="vin"></paper-toast>
+  </div>
+  <script src="scripts/vars.js"></script>
+  <script src="scripts/dtechs.js"></script>
+  <!-- <platinum-sw-register auto-register> -->
+  <!--   <platinum-sw-cache default-cache-strategy="fastest" --> 
+  <!--     cache-config-file="cache-config.json"></platinum-sw-cache> -->
+  <!-- </platinum-sw-register> -->
+</body>
+</html>

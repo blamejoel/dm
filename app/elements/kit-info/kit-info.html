@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="kit-info">
+  <template>
+    <style>
+      :host {
+
+      }
+      paper-listbox {
+        --paper-listbox-background-color: transparent;
+      }
+      paper-item {
+        @apply(--layout-around-justified);
+      }
+      paper-item > span {
+        width:40%;
+      }
+    </style>
+    <paper-listbox>
+      <template is="dom-repeat" items="[[infoArr]]">
+        <paper-item>
+          <span>[[item.key]]</span> 
+          <span>[[item.desc]]</span>
+        </paper-item>
+      </template>
+    </paper-listbox>
+  </template>
+  <script>
+/* exported KitInfo */
+var KitInfo = Polymer({
+  is: 'kit-info',
+  factoryImpl: function(arr) {
+    this.infoArr = arr;
+    console.log(arr[2].desc);
+    /* console.log(arr); */
+  },
+  properties: {
+    infoArr: {
+      type: Array,
+      value: [{'key': 'Category', 'desc': 'Setting'}]
+    }
+  }
+});
+
+  </script>
+</dom-module>

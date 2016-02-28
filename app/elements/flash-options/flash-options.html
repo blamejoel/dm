@@ -1,0 +1,175 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="flash-options">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+        padding-bottom:20px;
+      }
+      iron-collapse {
+        outline:none;
+      }
+      .collapse-content {
+        padding-left:10px;
+      }
+      .heading {
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+      }
+      paper-listbox {
+        --paper-listbox-background-color: transparent;
+      }
+      paper-item {
+        @apply(--layout-horizontal);
+        @apply(--layout-justified);
+      }
+      paper-item > span {
+        @apply(--layout-flex);
+      }
+      iron-icon {
+        transition: ease 0.4s;
+      }
+      .rotate {
+        transform: rotate(180deg);
+      }
+      paper-slider {
+        --paper-slider-active-color: var(--paper-orange-600);
+        --paper-slider-knob-color: var(--paper-orange-600);
+      }
+      paper-dropdown-menu {
+        top:-10px;
+        width:50%;
+      }
+      paper-fab {
+        position:fixed;
+        bottom:25px;
+        right:25px;
+        --paper-fab-background: var(--paper-orange-600);
+        --paper-fab-keyboard-focus-background: var(--paper-orange-600);
+      }
+      paper-button {
+        @apply(--layout-self-center);
+        @apply(--layout-horizontal);
+        @apply(--layout-around-justified);
+        margin-top:10px;
+        width:200px;
+      }
+    </style>
+    <paper-listbox>
+        <paper-item onclick="toggleCollapse('#fwOptions')" class="heading">
+          <span>Firmware Options</span>
+          <iron-icon icon="expand-more" class="rotate"></iron-icon>
+        </paper-item>
+        <iron-collapse id="fwOptions" opened>
+          <div class="collapse-content">
+            <paper-item>
+              <span onclick="toggleSw('#option1')">Unlock Driver Priority</span>
+              <paper-toggle-button id="option1"></paper-toggle-button>
+            </paper-item>
+            <paper-item>
+              <span onclick="toggleSw('#option2')">Smart OEM Alarm Control</span>
+              <paper-toggle-button id="option2"></paper-toggle-button>
+            </paper-item>
+          </div>
+        </iron-collapse>
+
+        <paper-item onclick="toggleCollapse('#rsrOptions')" class="heading">
+          <span>Remote Start Ready Options</span>
+          <iron-icon icon="expand-more" class="rotate"></iron-icon>
+        </paper-item>
+        <iron-collapse id="rsrOptions" opened>
+          <div class="collapse-content">
+            <paper-item>
+              <span>Runtime</span>
+              <paper-slider editable min="1" max="60" value="12"></paper-slider>
+            </paper-item>
+            <paper-item>
+              <span>Start Attempts</span>
+              <paper-dropdown-menu>
+                <paper-menu class="dropdown-content" selected="2">
+                  <paper-item>1 Attempt</paper-item>
+                  <paper-item>2 Attempts</paper-item>
+                  <paper-item>3 Attempts</paper-item>
+                </paper-menu>
+              </paper-dropdown-menu>
+            </paper-item>
+          </div>
+        </iron-collapse>
+
+        <paper-item onclick="toggleCollapse('#d2dOptions')" class="heading">
+          <span>D2D Options</span>
+          <iron-icon icon="expand-more"></iron-icon>
+        </paper-item>
+        <iron-collapse id="d2dOptions">
+          <div class="collapse-content">
+            <template is="dom-repeat" items="[[d2dSettings]]">
+              <paper-item>
+                <span onclick="toggleAssist(this)">[[item.opt]]</span>
+                <paper-toggle-button id="[[item.id]]"></paper-toggle-button>
+              </paper-item>
+            </template>
+          </div>
+        </iron-collapse>
+    </paper-listbox>
+    <neon-animatable entry-animation="scale-up-animation">
+      <paper-fab onclick="fabAction()" icon="undo" elevation="2"></paper-fab>
+    </neon-animatable>
+    <paper-button raised onclick="flashDialog()">
+      <iron-icon icon="image:flash-on"></iron-icon><span>Flash Module</span>
+    </paper-button>
+    <paper-button raised onclick="app.notAvail()">
+      <iron-icon icon="maps:map"></iron-icon><span>Install Guide</span>
+    </paper-button>
+    <paper-button raised onclick="app.notAvail()">
+      <iron-icon icon="description"></iron-icon><span>DirectWire Sheet</span>
+    </paper-button>
+  </template>
+  <script>
+/* exported FlashOptions */
+var FlashOptions = Polymer({
+  is: 'flash-options',
+  factoryImpl: function(arr) {
+    this.infoArr = arr;
+    /* console.log(arr); */
+  },
+  properties: {
+    infoArr: {
+      type: Array,
+      value: [{'key': 'Category', 'desc': 'Setting'}]
+    },
+    d2dSettings: {
+      type: Array,
+      value: [
+      {'id': 'dl-lock', 'opt': 'DL-Lock', 'desc': 'Lock from remote starter'},
+      {'id': 'dl-unlock', 'opt': 'DL-Unlock', 'desc': 'Unlock from remote starter'},
+      {'id': 'dl-trunk', 'opt': 'DL-Trunk', 'desc': 'Trunk from remote starter'},
+      {'id': 'rs-rpm', 'opt': 'RS-Request RPM', 'desc': 'RPM query from remote starter'},
+      {'id': 'rs-gwr', 'opt': 'RS-Ground When Running', 
+        'desc': 'Ground when running from remote starter'},
+      {'id': 'st-drdoor', 'opt': 'ST-Driver Door', 'desc': 'Driver door status to remote starter'},
+      {'id': 'st-othdoor', 'opt': 'ST-Other Doors', 'desc': 'All door statuses to remote starter'},
+      {'id': 'st-hood', 'opt': 'ST-Hood', 'desc': 'Hood status to remote starter'},
+      {'id': 'st-trunk', 'opt': 'ST-Trunk', 'desc': 'Trunk status to remote starter'},
+      {'id': 'st-brake', 'opt': 'ST-Brake', 'desc': 'Brake lights status to remote starter'},
+      {'id': 'st-pbrake', 'opt': 'ST-Parking Brake', 
+        'desc': 'Parking brake status to remote starter'},
+      {'id': 'oem-lock', 'opt': 'OEM-Keyless Arm', 'desc': 'Arm aftermarket security with OEM fob'},
+      {'id': 'oem-unlock', 'opt': 'OEM-Keyless Disarm', 
+        'desc': 'Disarm aftermarket security with OEM fob'}
+      ]
+    }
+  }
+});
+
+  </script>
+</dom-module>

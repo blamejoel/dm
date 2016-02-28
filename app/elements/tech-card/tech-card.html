@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../veh-dropdown/veh-dropdown.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="tech-card">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+        margin:10px;
+      }
+    </style>
+    <paper-card heading="[[heading]]">
+      <div class="card-content">
+        <content></content>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+/* exported TechCard */
+    var TechCard = Polymer({
+      is: 'tech-card',
+      factoryImpl: function(heading) {
+        this.heading = heading;
+      },
+      properties: {
+        heading: {
+          type: String,
+          value: 'Tech Card'
+        }
+      }
+    });
+  </script>
+</dom-module>

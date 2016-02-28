@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="flash-dialog">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+      }
+      paper-dialog {
+        background-color: #ffffff
+      }
+      .content {
+        text-align:center;
+      }
+      paper-spinner-lite {
+        --paper-spinner-color: var(--paper-orange-600);
+        height:50px;
+        width:50px;
+      }
+      iron-icon {
+        --iron-icon-height:50px;
+        --iron-icon-width:50px;
+        --iron-icon-fill-color: var(--paper-orange-600);
+        padding-bottom:6px;
+      }
+      paper-progress {
+        --paper-progress-active-color: var(--paper-orange-600);
+        width:100%;
+      }
+    </style>
+    <paper-dialog id="flash-screen" entry-animation="scale-up-animation" 
+      exit-animation="fade-out-animation" modal>
+      <h2>Flashing</h2>
+      <div class="content">
+        <iron-icon icon="check-circle" id="flash-done"></iron-icon>
+        <paper-spinner-lite active></paper-spinner-lite>
+        <paper-progress></paper-progress>
+        <span id="flash-progress">0</span>%
+      </div>
+      <div class="buttons">
+        <paper-button onclick="app.notAvail()">Guide</paper-button>
+        <paper-button onclick="app.notAvail()">DirectWire</paper-button>
+        <paper-button onclick="showFab()" id="dia-close" dialog-confirm autofocus>Close</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+  <script>
+/* exported FlashDialog */
+var FlashDialog = Polymer({
+  is: 'flash-dialog',
+  factoryImpl: function(arr) {
+    this.infoArr = arr;
+    /* console.log(arr); */
+  },
+  properties: {
+    infoArr: {
+      type: Array,
+      value: [{'key': 'Category', 'desc': 'Setting'}]
+    }
+  }
+});
+
+  </script>
+</dom-module>

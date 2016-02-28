@@ -1,0 +1,60 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../veh-dropdown/veh-dropdown.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="menu-card">
+  <template>
+    <style>
+      :host {
+        margin:0;
+      }
+      paper-card {
+        margin:0 5px;
+        width:45%;
+        max-width:300px;
+        height:100px;
+      }
+      .card-image {
+        border:1px solid gray;
+        height:50px;
+        width:50px;
+        background:gray;
+      }
+      .card-desc {
+        width:55%;
+        text-align:center;
+        padding:0 10px;
+      }
+      .card-content {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-fit);
+      }
+    </style>
+    <paper-card>
+      <div class="card-content">
+        <div class="card-image">&nbsp;</div>
+        <div class="card-desc">
+          <span>
+            <content></content>
+          </span>
+        </div>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+/* exported MenuCard */
+    var MenuCard = Polymer({
+      is: 'menu-card',
+      factoryImpl: function(heading) {
+        this.heading = heading;
+      },
+      properties: {
+        heading: {
+          type: String,
+          value: 'Tech Card'
+        }
+      }
+    });
+  </script>
+</dom-module>

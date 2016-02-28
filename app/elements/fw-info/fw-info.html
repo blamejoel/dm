@@ -1,0 +1,142 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="fw-info">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+        margin:10px;
+      }
+      .card-content {
+        padding-top:0px;
+        padding-bottom:5px;
+      }
+      paper-dropdown-menu {
+        width:90%;
+      }
+      paper-menu {
+        width:10em;
+      }
+      .fw-keys {
+        @apply(--layout-horizontal);
+        @apply(--layout-around-justified);
+        padding:35px 0px;
+      }
+      .fw-note, .fw-more {
+        padding-bottom:20px;
+      }
+      .history {
+        font-weight:bold;
+        margin-right:10px;
+      }
+      .placeholder {
+        height:50px;
+        width:50px;
+        border-radius:50%;
+        background-color:gray;
+        text-align:center;
+      }
+      .placeholder > span {
+        position:relative;
+        top:15px;
+        color: rgba(255,255,255,0.8);
+      }
+      paper-badge {
+        --paper-badge-background: var(--paper-orange-600);
+      }
+      .card-actions {
+        @apply(--layout-horizontal);
+        @apply(--layout-around-justified);
+        padding-bottom:0px;
+      }
+    </style>
+    <paper-card heading="[[heading]]">
+      <div class="card-content">
+        <div class="fw-selection">
+          <paper-dropdown-menu>
+            <paper-menu class="dropdown-content" selected="0">
+              <paper-item>402.TL6 v1.26</paper-item>
+              <paper-item>402.TL6 v1.16</paper-item>
+              <paper-item>402.TL6 v1.00</paper-item>
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+        <div class="fw-keys">
+          <div class="placeholder">
+            <span>pkeys</span>
+            <paper-badge label="1"></paper-badge>
+          </div>
+          <div class="placeholder">
+            <span>ikeys</span>
+            <paper-badge label="1"></paper-badge>
+          </div>
+          <div class="placeholder">
+            <span>fob</span>
+            <paper-badge icon="check"></paper-badge>
+          </div>
+        </div>
+        <div class="fw-note">
+          <span>Note: Takeover is not available with this solution.</span>
+        </div>
+        <iron-collapse id="[[id]]">
+          <div class="fw-more">
+              <p class="history">Firmware History</p>
+              <div>
+                <span class="history">v1.26</span><span>Fixed OBD CAN request</span>
+              </div>
+              <div>
+                <span class="history">v1.22</span><span>Added trunk sensing for 2014 Rav4</span>
+              </div>
+              <div>
+                <span class="history">v1.21</span><span>Update for RSR</span>
+              </div>
+              <p class="history">Supported Features*</p>
+              <div>
+                <ul>
+                  <li>Data-based transponder override</li>
+                  <li>Door lock/unlock control</li>
+                  <li>Factory security control</li>
+                  <li>Trunk/Hatch release</li>
+                  <li>Aftermarket alarm control from OE fob</li>
+                  <li>Brake status</li>
+                  <li>Door statuses</li>
+                  <li>Hood status</li>
+                  <li>Trunk/Hatch status</li>
+                  <li>Tach/RPM output</li>
+                </ul>
+                <span>*Review installation guide for a complete list.</span>
+              </div>
+          </div>
+        </iron-collapse>
+        <div class="card-actions">
+          <paper-button onclick="toggleMore(this)">More</paper-button>
+          <paper-button onclick="app.notAvail()">Guide</paper-button>
+          <paper-button onclick="gotoFlash()">Flash</paper-button>
+        </div>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+/* exported FwInfo */
+var FwInfo = Polymer({
+  is: 'fw-info',
+  factoryImpl: function(heading, id) {
+    this.heading = heading;
+    this.id = id;
+  },
+  properties: {
+    heading: {
+      type: String,
+      value: 'FW-Card'
+    },
+    id: {
+      type: String,
+      value: ''
+    }
+  }
+});
+
+  </script>
+</dom-module>

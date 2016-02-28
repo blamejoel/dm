@@ -1,0 +1,62 @@
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="veh-dropdown">
+  <template>
+    <style>
+:host {
+  @apply(--layout-vertical);
+  text-align:center;
+}
+paper-dropdown-menu {
+  width:70%;
+  max-width:400px;
+}
+paper-menu {
+  width:10em;
+}
+    </style>
+    <div>
+      <paper-dropdown-menu label="[[selectType]]" disabled="[[vin]]">
+        <paper-menu class="dropdown-content" selected="[[selected]]">
+          <template is="dom-repeat" items="[[listItem]]">
+            <paper-item>[[item]]</paper-item>
+          </template>
+        </paper-menu>
+      </paper-dropdown-menu>
+    </div>
+  </template>
+  <script>
+/* exported VehDropdown */
+    var VehDropdown = Polymer({
+      is: 'veh-dropdown',
+      factoryImpl: function(selectType, listItem) {
+        this.selectType = selectType;
+        this.listItem = listItem;
+      },
+      properties: {
+        selectType: {
+          type: String,
+          value: 'New Dropdown'
+        },
+        listItem: {
+          type: String,
+          value: ['Option']
+        },
+        selected: {
+          type: Number,
+          value: -1
+        },
+        vin: {
+          type: Boolean,
+          value: false
+        }
+      },
+      vinDetected: function() {
+        this.selected = 0;
+        //this.vin = true;
+      }
+    });
+  </script>
+</dom-module>
