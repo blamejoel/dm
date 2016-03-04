@@ -2,7 +2,8 @@
 This web app was created to showcase a potential redesign of a particular app
 for a client.
 
-It is built with PolymerJS.
+It is built with PolymerJS and all relevant work can be found in the [app dir]
+(app/).
 
 ### Licensing
 Please do not copy, distribute or otherwise use any of this code without 
